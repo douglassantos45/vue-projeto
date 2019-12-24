@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app clipped>
-      <v-list dense>
+      <v-list dense class="mt-4">
         <router-link to="/">
           <v-list-item link>
             <v-list-item-action>
@@ -24,24 +24,50 @@
           </v-list-item>
         </router-link>
         <!--Fim Empresa-->
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-account</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Supervisor</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        <router-link to="/supervisor">
+          <v-list-item link>
+            <v-list-item-action>
+              <v-icon>mdi-account</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Supervisor</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </router-link>
         <!--Fim Supervisor-->
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-clipboard-account</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Estágio</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        <router-link to="/estagio">
+          <v-list-item link>
+            <v-list-item-action>
+              <v-icon>mdi-clipboard-account</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Estágio</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </router-link>
         <!--Fim Estagio-->
+        <router-link to="/orientador">
+          <v-list-item link>
+            <v-list-item-action>
+              <v-icon>mdi-account-circle</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Orientador</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </router-link>
+        <!--Fim Orientador-->
+        <router-link to="/aluno">
+          <v-list-item link>
+            <v-list-item-action>
+              <v-icon>mdi-account</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Aluno</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </router-link>
+        <!--Fim Aluno-->
       </v-list>
     </v-navigation-drawer>
 
@@ -50,9 +76,11 @@
       <v-toolbar-title>IF Baiano</v-toolbar-title>
       <v-spacer></v-spacer>
       <span>Douglas</span>
-      <v-btn icon>
-        <v-icon>mdi-logout</v-icon>
-      </v-btn>
+      <router-link to="/logout">
+        <v-btn icon>
+          <v-icon>mdi-logout</v-icon>
+        </v-btn>
+      </router-link>
     </v-app-bar>
 
     <v-content>

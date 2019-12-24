@@ -1,13 +1,21 @@
 <template>
-  <v-data-table :headers="headers" :items="empresas" sort-by="calories" class="elevation-1 mt-3">
+  <v-data-table
+    :search="search"
+    :headers="headers"
+    :items="alunos"
+    sort-by="calories"
+    class="elevation-1 mt-3"
+  >
     <template v-slot:top>
       <v-toolbar flat color="white">
-        <v-toolbar-title class="text-uppercase">dados das empresas</v-toolbar-title>
+        <v-toolbar-title class="text-uppercase">dados do Aluno</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
+        <v-spacer></v-spacer>
+        <v-text-field v-model="search" label="Pesquisar Aluno" single-line hide-details></v-text-field>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="1000px">
           <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark class="mb-2" v-on="on">Cadastrar Empresa</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-on="on">Cadastrar Aluno</v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -59,6 +67,7 @@
 export default {
   data: () => ({
     dialog: false,
+    search: "",
     headers: [
       {
         text: "Nome da Empresa",
@@ -72,7 +81,7 @@ export default {
       { text: "Protein (g)", value: "protein" },
       { text: "Actions", value: "action", sortable: false }
     ],
-    empresas: [],
+    alunos: [],
     editedIndex: -1,
     editedItem: {
       name: "",
@@ -108,28 +117,7 @@ export default {
 
   methods: {
     initialize() {
-      this.empresas = [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0
-        },
+      this.alunos = [
         {
           name: "Cupcake",
           calories: 305,
@@ -143,55 +131,20 @@ export default {
           fat: 16.0,
           carbs: 49,
           protein: 3.9
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5
-        },
-        {
-          name: "Donut",
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7
         }
       ];
     },
 
     editItem(item) {
-      this.editedIndex = this.empresas.indexOf(item);
+      this.editedIndex = this.alunos.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      const index = this.empresas.indexOf(item);
+      const index = this.alunos.indexOf(item);
       confirm("Are you sure you want to delete this item?") &&
-        this.empresas.splice(index, 1);
+        this.alunos.splice(index, 1);
     },
 
     close() {
@@ -204,9 +157,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.empresas[this.editedIndex], this.editedItem);
+        Object.assign(this.alunos[this.editedIndex], this.editedItem);
       } else {
-        this.empresas.push(this.editedItem);
+        this.alunos.push(this.editedItem);
       }
       this.close();
     }

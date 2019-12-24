@@ -1,13 +1,13 @@
 <template>
-  <v-data-table :headers="headers" :items="empresas" sort-by="calories" class="elevation-1 mt-3">
+  <v-data-table :headers="headers" :items="orientadores" sort-by="calories" class="elevation-1 mt-3">
     <template v-slot:top>
-      <v-toolbar flat color="white">
-        <v-toolbar-title class="text-uppercase">dados das empresas</v-toolbar-title>
+      <v-toolbar flat color="white" >
+        <v-toolbar-title class="text-uppercase">dados do orientador</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="1000px">
           <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark class="mb-2" v-on="on">Cadastrar Empresa</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-on="on">Cadastrar Orientador</v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -72,7 +72,7 @@ export default {
       { text: "Protein (g)", value: "protein" },
       { text: "Actions", value: "action", sortable: false }
     ],
-    empresas: [],
+    orientadores: [],
     editedIndex: -1,
     editedItem: {
       name: "",
@@ -108,28 +108,8 @@ export default {
 
   methods: {
     initialize() {
-      this.empresas = [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0
-        },
+      this.orientadores = [
+      
         {
           name: "Cupcake",
           calories: 305,
@@ -183,15 +163,15 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.empresas.indexOf(item);
+      this.editedIndex = this.orientadores.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      const index = this.empresas.indexOf(item);
+      const index = this.orientadores.indexOf(item);
       confirm("Are you sure you want to delete this item?") &&
-        this.empresas.splice(index, 1);
+        this.orientadores.splice(index, 1);
     },
 
     close() {
@@ -204,9 +184,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.empresas[this.editedIndex], this.editedItem);
+        Object.assign(this.orientadores[this.editedIndex], this.editedItem);
       } else {
-        this.empresas.push(this.editedItem);
+        this.orientadores.push(this.editedItem);
       }
       this.close();
     }

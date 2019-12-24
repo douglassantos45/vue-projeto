@@ -1,7 +1,7 @@
 <template>
-  <v-data-table :headers="headers" :items="estagios" sort-by="calories" class="elevation-1">
+  <v-data-table :headers="headers" :items="estagios" sort-by="calories" class="elevation-1 mt-3">
     <template v-slot:top>
-      <v-toolbar flat color="white">
+      <v-toolbar flat color="white" >
         <v-toolbar-title class="text-uppercase">dados do estágio</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
@@ -46,8 +46,8 @@
       </v-toolbar>
     </template>
     <template v-slot:item.action="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)">edit</v-icon>
-      <v-icon small @click="deleteItem(item)">delete</v-icon>
+      <v-icon small class="mr-2" @click="editItem(item)">mdi-pen</v-icon>
+      <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
     </template>
     <template v-slot:no-data>
       <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -109,27 +109,7 @@ export default {
   methods: {
     initialize() {
       this.estagios = [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0
-        },
+      
         {
           name: "Cupcake",
           calories: 305,

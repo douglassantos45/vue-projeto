@@ -1,56 +1,85 @@
 <template>
-  <v-card>
-    <v-toolbar flat>
-      <v-toolbar-title>Contact Database</v-toolbar-title>
+  <div>
+    <v-card class="mx-auto" max-width="1500">
+      <v-card-text class="mt-4">
+        <div></div>
+        <p class="display-1 text--primary">Documentação do Estágio</p>
+        <p>adjective</p>
+        <div class="text--primary">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis saepe neque tempora necessitatibus, voluptates labore voluptate molestiae possimus cumque officiis doloribus expedita recusandae. Voluptatum non tempore tempora eos suscipit harum.
+          <br />"a benevolent smile"
+        </div>
+      </v-card-text>
+      <v-card-actions>
+        <div id="chip-usage-example" class="text-center">
+          <v-chip>
+            <v-icon class="mr-1 pointer">mdi-printer</v-icon>Imprimir
+          </v-chip>
+        </div>
+      </v-card-actions>
+    </v-card>
+    <!-- Fim CARD -->
+    <template>
+      <v-card class="mx-auto mt-4" max-width="1500">
+        <v-card-text class="mt-4">
+          <div></div>
+          <h3 class="text--primary ml-3">Alunos Pendentes</h3>
 
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-
-      <template v-slot:extension>
-        <v-tabs v-model="tabs" fixed-tabs>
-          <v-tabs-slider></v-tabs-slider>
-          <v-tab href="#mobile-tabs-5-1" class="primary--text">
-            <v-icon>mdi-phone</v-icon>
-          </v-tab>
-
-          <v-tab href="#mobile-tabs-5-2" class="primary--text">
-            <v-icon>mdi-heart</v-icon>
-          </v-tab>
-
-          <v-tab href="#mobile-tabs-5-3" class="primary--text">
-            <v-icon>mdi-account-box</v-icon>
-          </v-tab>
-        </v-tabs>
-      </template>
-    </v-toolbar>
-
-    <v-tabs-items v-model="tabs">
-      <v-tab-item v-for="i in 3" :key="i" :value="'mobile-tabs-5-' + i">
-        <v-card flat>
-          <v-card-text v-text="text"></v-card-text>
-        </v-card>
-      </v-tab-item>
-    </v-tabs-items>
-  </v-card>
+          <div class="text--primary">
+            <v-simple-table fixed-header height="300px">
+              <template v-slot:default>
+                <thead>
+                  <tr>
+                    <th class="text-left">Nome</th>
+                    <th class="text-left">Matrícula</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in desserts" :key="item.nome">
+                    <td>{{ item.nome }}</td>
+                    <td>{{ item.matricula }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </div>
+        </v-card-text>
+      </v-card>
+    </template>
+  </div>
 </template>
+
 
 <script>
 export default {
+  name: "Home",
   data() {
     return {
-      tabs: null,
-      text:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      desserts: [
+        {
+          nome: "Frozen Yogurt",
+          matricula: 159
+        },
+        {
+          nome: "Ice cream sandwich",
+          matricula: 237
+        },
+        {
+          nome: "Eclair",
+          matricula: 262
+        },
+        {
+          nome: "Cupcake",
+          matricula: 305
+        }
+      ]
     };
   }
 };
 </script>
+
 <style>
+.pointer:hover {
+  cursor: pointer;
+}
 </style>

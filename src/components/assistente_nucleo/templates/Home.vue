@@ -1,23 +1,6 @@
 <template>
   <div>
-    <v-card class="mx-auto" max-width="1500">
-      <v-card-text class="mt-4">
-        <div></div>
-        <p class="display-1 text--primary">Documentação do Estágio</p>
-        <p>adjective</p>
-        <div class="text--primary">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis saepe neque tempora necessitatibus, voluptates labore voluptate molestiae possimus cumque officiis doloribus expedita recusandae. Voluptatum non tempore tempora eos suscipit harum.
-          <br />"a benevolent smile"
-        </div>
-      </v-card-text>
-      <v-card-actions>
-        <div id="chip-usage-example" class="text-center">
-          <v-chip>
-            <v-icon class="mr-1 pointer">mdi-printer</v-icon>Imprimir
-          </v-chip>
-        </div>
-      </v-card-actions>
-    </v-card>
+    <DocumentEstagio />
     <!-- Fim CARD -->
     <template>
       <v-card class="mx-auto mt-4" max-width="1500">
@@ -51,26 +34,28 @@
 
 
 <script>
+import DocumentEstagio from './ComponentDocumentEstagio'
 export default {
   name: "Home",
+  components: { DocumentEstagio },
   data() {
     return {
       desserts: [
         {
-          nome: "Frozen Yogurt",
-          matricula: 159
+          nome: "Kauanny Gomes Batista",
+          matricula: 1594342434
         },
         {
-          nome: "Ice cream sandwich",
-          matricula: 237
+          nome: "Anna Júlia Oliveira",
+          matricula: 2371234241
         },
         {
-          nome: "Eclair",
-          matricula: 262
+          nome: "Eclair Gomes da Silva",
+          matricula: 2625667353
         },
         {
-          nome: "Cupcake",
-          matricula: 305
+          nome: "Marcos Ferreira dos Santos",
+          matricula: 3051242444
         }
       ]
     };

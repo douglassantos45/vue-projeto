@@ -1,13 +1,5 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :search="search"
-    :items="empresas"
-    sort-by="calories"
-    class="elevation-1 mt-3"
-  >
-    <template v-slot:top>
-      <v-toolbar flat color="white">
+      <v-toolbar flat color="white" max-height="90" class="mt-4">
         <v-toolbar-title class="text-uppercase">dados das empresas</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-text-field v-model="search" label="Pesquisar Empresa" single-line hide-details></v-text-field>
@@ -85,16 +77,6 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.action="{ item }">
-      <v-icon small class="mr-2 blue--text" @click="editItem(item)">mdi-pen</v-icon>
-      <v-icon small class="red--text" @click="deleteItem(item)">mdi-delete</v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize">Resetar</v-btn>
-    </template>
-  </v-data-table>
-</template>
-
 <script>
 export default {
   data: () => ({

@@ -7,7 +7,7 @@
     class="elevation-1 mt-3"
   >
     <template v-slot:top>
-      <v-toolbar flat color="white">
+      <v-toolbar flat color="white" class="mb-6">
         <v-toolbar-title class="text-uppercase">dados das empresas</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-text-field v-model="search" label="Pesquisar Empresa" single-line hide-details></v-text-field>
@@ -33,44 +33,84 @@
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="5">
-                    <v-text-field v-model="editedItem.endereco" label="Endereço" :rules="nameRules"
-                      :counter="15"></v-text-field>
+                    <v-text-field
+                      v-model="editedItem.endereco"
+                      label="Endereço"
+                      :rules="nameRules"
+                      :counter="15"
+                    ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.bairro" label="Bairro" :rules="nameRules"
-                      :counter="10"></v-text-field>
+                    <v-text-field
+                      v-model="editedItem.bairro"
+                      label="Bairro"
+                      :rules="nameRules"
+                      :counter="10"
+                    ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.cidade" label="Cidade" :rules="nameRules"
-                      :counter="10"></v-text-field>
+                    <v-text-field
+                      v-model="editedItem.cidade"
+                      label="Cidade"
+                      :rules="nameRules"
+                      :counter="10"
+                    ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="1">
-                    <v-text-field v-model="editedItem.uf" label="UF" :rules="nameRules"
-                      :counter="2"></v-text-field>
+                    <v-text-field
+                      v-model="editedItem.uf"
+                      label="UF"
+                      :rules="nameRules"
+                      :counter="2"
+                    ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="3">
-                    <v-text-field v-model="editedItem.cep" label="Cep" :rules="nameRules"
-                      :counter="10"></v-text-field>
+                    <v-text-field
+                      v-model="editedItem.cep"
+                      label="Cep"
+                      :rules="nameRules"
+                      :counter="10"
+                    ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.cnpj" label="CNPJ/INCRA" :rules="nameRules"
-                      :counter="16"></v-text-field>
+                    <v-text-field
+                      v-model="editedItem.cnpj"
+                      label="CNPJ/INCRA"
+                      :rules="nameRules"
+                      :counter="16"
+                    ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.telefone" label="Telefone" :rules="nameRules"
-                      :counter="15"></v-text-field>
+                    <v-text-field
+                      v-model="editedItem.telefone"
+                      label="Telefone"
+                      :rules="nameRules"
+                      :counter="15"
+                    ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="5">
-                    <v-text-field v-model="editedItem.repreLegal" label="Representante Legal" :rules="nameRules"
-                      :counter="20"></v-text-field>
+                    <v-text-field
+                      v-model="editedItem.repreLegal"
+                      label="Representante Legal"
+                      :rules="nameRules"
+                      :counter="20"
+                    ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.cargo" label="Cargo" :rules="nameRules"
-                      :counter="10"></v-text-field>
+                    <v-text-field
+                      v-model="editedItem.cargo"
+                      label="Cargo"
+                      :rules="nameRules"
+                      :counter="10"
+                    ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="3">
-                    <v-text-field v-model="editedItem.areaAtuacao" label="Área de Atuação" :rules="nameRules"
-                      :counter="10"></v-text-field>
+                    <v-text-field
+                      v-model="editedItem.areaAtuacao"
+                      label="Área de Atuação"
+                      :rules="nameRules"
+                      :counter="10"
+                    ></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -78,8 +118,11 @@
             <!--Fim modal-->
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-1" text @click="close">Cancelar</v-btn>
-              <v-btn color="green darken-1" text @click="save">Confirmar</v-btn>
+              <div class="my-3 mr-6">
+                <v-btn small color="red" class="white--text" @click="close">Cancelar</v-btn>
+                 <v-btn small color="green" class="white--text" @click="save">Confirmar</v-btn>
+              </div>
+              
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -97,12 +140,11 @@
 
 <script>
 export default {
+  name: 'ComponentDataTable',
   data: () => ({
     dialog: false,
     search: "",
-    nameRules: [
-      v => !!v || "Name is required",
-    ],
+    nameRules: [v => !!v || "Name is required"],
     headers: [
       {
         text: "Nome da Empresa",

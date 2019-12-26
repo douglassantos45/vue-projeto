@@ -1,19 +1,139 @@
 <template>
   <v-app>
+    <v-toolbar flat color="white" max-height="90" class="mt-4">
+      <v-toolbar-title class="text-uppercase">dados dos supervisores</v-toolbar-title>
+      <v-divider class="mx-4" inset vertical></v-divider>
+      <v-text-field v-model="search" label="Pesquisar Empresa" single-line hide-details></v-text-field>
+      <v-spacer></v-spacer>
       <FormModal />
-      <DataTable />
+    </v-toolbar>
+    <v-data-table :search="search" :headers="headers" :items="supervisores" sort-by="calories" class="elevation-1 mt-3">
+    <template v-slot:top>
+    </template>
+    <template v-slot:item.action="{ item }">
+      <v-icon small class="mr-2" @click="editItem(item)">mdi-pen</v-icon>
+      <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+    </template>
+    <template v-slot:no-data>
+      <v-btn color="primary" @click="initialize">Reset</v-btn>
+    </template>
+  </v-data-table>
   </v-app>
 </template>
 
 <script>
-import DataTable from './templates/ComponentDataTable'
-import FormModal from '../templates/ComponentFormModalPeople'
+import FormModal from "../templates/ComponentFormModalPeople";
 export default {
-    name: 'SupervisorPage',
-    components: { DataTable, FormModal }
-}
+  name: "SupervisorPage",
+  components: { FormModal },
+  data: () => ({
+    dialog: false,
+    search: '',
+    headers: [
+      {
+        text: "Nome da Empresa",
+        align: "left",
+        sortable: false,
+        value: "name"
+      },
+      { text: "Calories", value: "calories" },
+      { text: "Fat (g)", value: "fat" },
+      { text: "Carbs (g)", value: "carbs" },
+      { text: "Protein (g)", value: "protein" },
+      { text: "Actions", value: "action", sortable: false }
+    ],
+    supervisores: [],
+    editedIndex: -1,
+    editedItem: {
+      name: "",
+      calories: 0,
+      fat: 0,
+      carbs: 0,
+      protein: 0
+    },
+    defaultItem: {
+      name: "",
+      calories: 0,
+      fat: 0,
+      carbs: 0,
+      protein: 0
+    }
+  }),
+
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+    }
+  },
+
+  watch: {
+    dialog(val) {
+      val || this.close();
+    }
+  },
+
+  created() {
+    this.initialize();
+  },
+
+  methods: {
+    initialize() {
+      this.supervisores = [
+        {
+          name: "Frozen Yogurt",
+          calories: 159,
+          fat: 6.0,
+          carbs: 24,
+          protein: 4.0
+        },
+        {
+          name: "Ice cream sandwich",
+          calories: 237,
+          fat: 9.0,
+          carbs: 37,
+          protein: 4.3
+        },
+        {
+          name: "Eclair",
+          calories: 262,
+          fat: 16.0,
+          carbs: 23,
+          protein: 6.0
+        }
+      ];
+    },
+
+    editItem(item) {
+      this.editedIndex = this.supervisores.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+
+    deleteItem(item) {
+      const index = this.supervisores.indexOf(item);
+      confirm("Are you sure you want to delete this item?") &&
+        this.supervisores.splice(index, 1);
+    },
+
+    close() {
+      this.dialog = false;
+      setTimeout(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      }, 300);
+    },
+
+    save() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.supervisores[this.editedIndex], this.editedItem);
+      } else {
+        this.supervisores.push(this.editedItem);
+      }
+      this.close();
+    }
+  }
+};
 </script>
 
 <style>
-
 </style>

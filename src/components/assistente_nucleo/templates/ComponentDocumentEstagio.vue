@@ -24,8 +24,10 @@
                 <v-spacer></v-spacer>
                 <br />
                 <br />
-                <v-btn color="red darken-1" text @click="dialog = false">Cancelar</v-btn>
-                <v-btn color="green darken-1" text @click="dialog = false">Confirmar</v-btn>
+                <div class="my-3 mr-6">
+                  <v-btn small color="red" class="white--text" @click="dialog = false">Cancelar</v-btn>
+                  <v-btn small color="green" class="white--text" @click="dialog = false">Confirmar</v-btn>
+                </div>
               </v-card-actions>
             </v-card>
           </v-dialog>

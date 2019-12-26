@@ -65,6 +65,7 @@
 
 <script>
 export default {
+  name: 'ComponentDataTable',
   data: () => ({
     dialog: false,
     search: "",

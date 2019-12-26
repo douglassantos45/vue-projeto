@@ -1,90 +1,138 @@
 <template>
-      <v-toolbar flat color="white" max-height="90" class="mt-4">
-        <v-toolbar-title class="text-uppercase">dados das empresas</v-toolbar-title>
-        <v-divider class="mx-4" inset vertical></v-divider>
-        <v-text-field v-model="search" label="Pesquisar Empresa" single-line hide-details></v-text-field>
-        <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="1000px">
-          <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark class="mb-2" v-on="on">Cadastrar Empresa</v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
-            </v-card-title>
-            <!-- Modal Cadastro/Edit -->
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" sm="6" md="7">
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="Nome da Empresa"
-                      :rules="nameRules"
-                      :counter="20"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="5">
-                    <v-text-field v-model="editedItem.endereco" label="Endereço" :rules="nameRules"
-                      :counter="15"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.bairro" label="Bairro" :rules="nameRules"
-                      :counter="10"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.cidade" label="Cidade" :rules="nameRules"
-                      :counter="10"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="1">
-                    <v-text-field v-model="editedItem.uf" label="UF" :rules="nameRules"
-                      :counter="2"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="3">
-                    <v-text-field v-model="editedItem.cep" label="Cep" :rules="nameRules"
-                      :counter="10"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.cnpj" label="CNPJ/INCRA" :rules="nameRules"
-                      :counter="16"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.telefone" label="Telefone" :rules="nameRules"
-                      :counter="15"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="5">
-                    <v-text-field v-model="editedItem.repreLegal" label="Representante Legal" :rules="nameRules"
-                      :counter="20"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.cargo" label="Cargo" :rules="nameRules"
-                      :counter="10"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="3">
-                    <v-text-field v-model="editedItem.areaAtuacao" label="Área de Atuação" :rules="nameRules"
-                      :counter="10"></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-            <!--Fim modal-->
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="red darken-1" text @click="close">Cancelar</v-btn>
-              <v-btn color="green darken-1" text @click="save">Confirmar</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-toolbar>
-    </template>
+  <div>
+    <v-dialog v-model="dialog" max-width="1000px">
+      <template v-slot:activator="{ on }">
+        <v-btn color="primary" dark class="mb-2" v-on="on">Cadastrar</v-btn>
+      </template>
+      <v-card>
+        <v-card-title>
+          <span class="headline">{{ formTitle }}</span>
+        </v-card-title>
+        <!-- Modal Cadastro/Edit -->
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="6" md="7">
+                <v-text-field
+                  v-model="editedItem.name"
+                  label="Nome"
+                  :rules="nameRules"
+                  :counter="20"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="5">
+                <v-text-field
+                  v-model="editedItem.endereco"
+                  label="Endereço"
+                  :rules="nameRules"
+                  :counter="15"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="4">
+                <v-text-field
+                  v-model="editedItem.bairro"
+                  label="Bairro"
+                  :rules="nameRules"
+                  :counter="10"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="5">
+                <v-text-field
+                  v-model="editedItem.cidade"
+                  label="Cidade"
+                  :rules="nameRules"
+                  :counter="10"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="3">
+                <v-text-field v-model="editedItem.cpf" label="CPF" :rules="nameRules" :counter="2"></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="4">
+                <v-text-field
+                  v-model="editedItem.areaAtuacao"
+                  label="Área de Atuação"
+                  :rules="nameRules"
+                  :counter="10"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="4">
+                <v-text-field
+                  v-model="editedItem.telefone"
+                  label="Telefone"
+                  :rules="nameRules"
+                  :counter="16"
+                ></v-text-field>
+              </v-col>
+
+              <!-- DATA -->
+              <v-col cols="12" sm="6" md="4">
+                <v-dialog
+                  ref="dialog"
+                  v-model="modal"
+                  :return-value.sync="date"
+                  persistent
+                  width="290px"
+                >
+                  <template v-slot:activator="{ on }">
+                    <v-text-field v-model="date" label="Data de Nascimento" readonly v-on="on"></v-text-field>
+                  </template>
+                  <v-date-picker v-model="date" scrollable>
+                    <v-spacer></v-spacer>
+                    <v-btn text color="red" @click="modal = false">Cancelar</v-btn>
+                    <v-btn text color="primary" @click="$refs.dialog.save(date)">Confirmar</v-btn>
+                  </v-date-picker>
+                </v-dialog>
+              </v-col>
+              <!-- FIM DATA -->
+              <v-col cols="12" sm="6" md="5">
+                <v-text-field
+                  v-model="editedItem.orgaoExpedidor"
+                  label="Orgão Expedidor"
+                  :rules="nameRules"
+                  :counter="20"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="4">
+                <v-text-field v-model="editedItem.rg" label="RG" :rules="nameRules" :counter="10"></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="3">
+                <v-text-field v-model="editedItem.uf" label="UF" :rules="nameRules" :counter="10"></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="3">
+                <v-select
+                  v-model="select"
+                  :items="items"
+                  :error-messages="selectErrors"
+                  label="Curso"
+                  :rules="nameRules"
+                  @change="$v.select.$touch()"
+                  @blur="$v.select.$touch()"
+                ></v-select>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <!--Fim modal-->
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="red darken-1" text @click="close">Cancelar</v-btn>
+          <v-btn color="green darken-1" text @click="save">Confirmar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
+</template>
 <script>
 export default {
+  name: 'ComponentFormModalPeople',
   data: () => ({
+    menu: false,
+    modal: false,
     dialog: false,
+    select: null,
+    items: ["Curso 1", "Curso 2", "Curso 3", "Curso 4"],
     search: "",
-    nameRules: [
-      v => !!v || "Name is required",
-    ],
+    nameRules: [v => !!v || "Name is required"],
     headers: [
       {
         text: "Nome da Empresa",

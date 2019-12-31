@@ -25,7 +25,7 @@
               </v-list-item-icon>
               <v-list-item-title>Ações</v-list-item-title>
             </template>
-            <router-link to="/planoEstagio">
+            <router-link to="/cadastrar">
               <v-list-item link class="ml-6">
                 <v-list-item-title>Cadastrar Plano de Estágio</v-list-item-title>
                 <v-list-item-icon>
@@ -33,7 +33,7 @@
                 </v-list-item-icon>
               </v-list-item>
             </router-link>
-            <router-link to="/viewPlanoEstagio">
+            <router-link to="/visualizar">
               <v-list-item link class="ml-6">
                 <v-list-item-title>Visualizar Plano de Estágio</v-list-item-title>
                 <v-list-item-icon>

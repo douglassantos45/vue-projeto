@@ -10,7 +10,6 @@
       <v-list dense class="mt-4">
         <v-list-item>
           <v-avatar color="indigo" size="32">
-            <span class="white--text"></span>
           </v-avatar>
           <v-list-item-content>
             <v-list-item-title class="ml-3">Douglas da Silva Santos</v-list-item-title>
@@ -26,17 +25,17 @@
               </v-list-item-icon>
               <v-list-item-title>Ações</v-list-item-title>
             </template>
-            <router-link to="/horario">
-              <v-list-item link class="ml-12">
-                <v-list-item-title>Cadastrar Horário</v-list-item-title>
+            <router-link to="/planoEstagio">
+              <v-list-item link class="ml-6">
+                <v-list-item-title>Cadastrar Plano de Estágio</v-list-item-title>
                 <v-list-item-icon>
-                  <v-icon>mdi-calendar-clock</v-icon>
+                  <v-icon>mdi-clipboard-text</v-icon>
                 </v-list-item-icon>
               </v-list-item>
             </router-link>
-            <router-link to="/situacao">
-              <v-list-item link class="ml-12">
-                <v-list-item-title>Visualizar Situação</v-list-item-title>
+            <router-link to="/viewPlanoEstagio">
+              <v-list-item link class="ml-6">
+                <v-list-item-title>Visualizar Plano de Estágio</v-list-item-title>
                 <v-list-item-icon>
                   <v-icon>mdi-checkbox-marked-circle-outline</v-icon>
                 </v-list-item-icon>

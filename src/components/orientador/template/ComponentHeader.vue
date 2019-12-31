@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar app clipped-right color="cyan " dark>
+    <v-app-bar app clipped-right>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>IF Baiano</v-toolbar-title>
       <v-spacer />

@@ -1,10 +1,19 @@
 <template>
-  <div></div>
+  <div>
+    <Header />
+    <br>
+    <Content />
+    <Footer />
+  </div>
 </template>
 
 <script>
+import Header from "./template/ComponentHeader";
+import Footer from "./template/ComponentFooter";
+import Content from "./template/Content";
 export default {
-  name: "OrientadorPage"
+  name: "OrientadorPage",
+  components: { Header, Footer, Content }
 };
 </script>
 

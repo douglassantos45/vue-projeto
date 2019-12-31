@@ -1,21 +1,16 @@
 <template>
-  <div>
-    <Header />
-    <br>
+  <v-app>
     <Content />
-    <Footer />
-  </div>
+  </v-app>
 </template>
 
 <script>
-import Header from "./template/ComponentHeader";
-import Footer from "./template/ComponentFooter";
-import Content from "./template/Content";
+import Content from "./components/orientador/OrientadorPage";
 export default {
   name: "AppOrientador",
-  components: { Header, Footer, Content }
+  components: { Content },
+  data: () => ({
+    //
+  })
 };
 </script>
-
-<style>
-</style>

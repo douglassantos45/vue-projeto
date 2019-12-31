@@ -1,12 +1,10 @@
 <template>
-    <router-view></router-view>
+  <router-view></router-view>
 </template>
 
 <script>
-//import DataTable from './ComponentDataTable'
-
 export default {
-  name: "Content",
+  name: "Content"
 };
 </script>
 

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import AppOrientador from './AppOrientador.vue'
 import vuetify from './plugins/vuetify'
-import router from './config/router'
+import router from './router'
 
 
 Vue.config.productionTip = false

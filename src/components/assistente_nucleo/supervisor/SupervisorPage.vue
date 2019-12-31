@@ -7,17 +7,22 @@
       <v-spacer></v-spacer>
       <FormModal />
     </v-toolbar>
-    <v-data-table :search="search" :headers="headers" :items="supervisores" sort-by="calories" class="elevation-1 mt-3">
-    <template v-slot:top>
-    </template>
-    <template v-slot:item.action="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)">mdi-pen</v-icon>
-      <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize">Reset</v-btn>
-    </template>
-  </v-data-table>
+    <v-data-table
+      :search="search"
+      :headers="headers"
+      :items="supervisores"
+      sort-by="calories"
+      class="elevation-1 mt-3"
+    >
+      <template v-slot:top></template>
+      <template v-slot:item.action="{ item }">
+        <v-icon small class="mr-2" @click="editItem(item)">mdi-pen</v-icon>
+        <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+      </template>
+      <template v-slot:no-data>
+        <v-btn color="primary" @click="initialize">Reset</v-btn>
+      </template>
+    </v-data-table>
   </v-app>
 </template>
 
@@ -26,39 +31,41 @@ import FormModal from "../templates/ComponentFormModalPeople";
 export default {
   name: "SupervisorPage",
   components: { FormModal },
-  data: () => ({
-    dialog: false,
-    search: '',
-    headers: [
-      {
-        text: "Nome da Empresa",
-        align: "left",
-        sortable: false,
-        value: "name"
+  data() {
+    return {
+      dialog: false,
+      search: "",
+      headers: [
+        {
+          text: "Nome da Empresa",
+          align: "left",
+          sortable: false,
+          value: "name"
+        },
+        { text: "Calories", value: "calories" },
+        { text: "Fat (g)", value: "fat" },
+        { text: "Carbs (g)", value: "carbs" },
+        { text: "Protein (g)", value: "protein" },
+        { text: "Actions", value: "action", sortable: false }
+      ],
+      supervisores: [],
+      editedIndex: -1,
+      editedItem: {
+        name: "",
+        calories: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0
       },
-      { text: "Calories", value: "calories" },
-      { text: "Fat (g)", value: "fat" },
-      { text: "Carbs (g)", value: "carbs" },
-      { text: "Protein (g)", value: "protein" },
-      { text: "Actions", value: "action", sortable: false }
-    ],
-    supervisores: [],
-    editedIndex: -1,
-    editedItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0
-    },
-    defaultItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0
-    }
-  }),
+      defaultItem: {
+        name: "",
+        calories: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0
+      }
+    };
+  },
 
   computed: {
     formTitle() {

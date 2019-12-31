@@ -124,74 +124,72 @@
 </template>
 <script>
 export default {
-  name: 'ComponentFormModalPeople',
-  data: () => ({
-    menu: false,
-    modal: false,
-    dialog: false,
-    select: null,
-    items: ["Curso 1", "Curso 2", "Curso 3", "Curso 4"],
-    search: "",
-    nameRules: [v => !!v || "Name is required"],
-    headers: [
-      {
-        text: "Nome da Empresa",
-        align: "left",
-        value: "name"
+  name: "ComponentFormModalPeople",
+  data() {
+    return {
+      menu: false,
+      modal: false,
+      dialog: false,
+      select: null,
+      items: ["Curso 1", "Curso 2", "Curso 3", "Curso 4"],
+      search: "",
+      nameRules: [v => !!v || "Name is required"],
+      headers: [
+        {
+          text: "Nome da Empresa",
+          align: "left",
+          value: "name"
+        },
+        { text: "Cidade", value: "cidade" },
+        { text: "CEP", value: "cep", sortable: false },
+        { text: "Telefone", value: "telefone", sortable: false },
+        { text: "Representante Legal", value: "repreLegal", sortable: false },
+        { text: "Área de Atuação", value: "areaAtuacao", sortable: false },
+        { text: "Ações", value: "action", sortable: false }
+      ],
+      empresas: [],
+      editedIndex: -1,
+      editedItem: {
+        name: "",
+        endereco: "",
+        bairro: "",
+        cidade: "",
+        uf: "",
+        cep: "",
+        cnpj: "",
+        telefone: "",
+        repreLegal: "",
+        cargo: "",
+        areaAtuacao: ""
       },
-      { text: "Cidade", value: "cidade" },
-      { text: "CEP", value: "cep", sortable: false },
-      { text: "Telefone", value: "telefone", sortable: false },
-      { text: "Representante Legal", value: "repreLegal", sortable: false },
-      { text: "Área de Atuação", value: "areaAtuacao", sortable: false },
-      { text: "Ações", value: "action", sortable: false }
-    ],
-    empresas: [],
-    editedIndex: -1,
-    editedItem: {
-      name: "",
-      endereco: "",
-      bairro: "",
-      cidade: "",
-      uf: "",
-      cep: "",
-      cnpj: "",
-      telefone: "",
-      repreLegal: "",
-      cargo: "",
-      areaAtuacao: ""
-    },
-    defaultItem: {
-      name: "",
-      endereco: "",
-      bairro: "",
-      cidade: "",
-      uf: "",
-      cep: "",
-      cnpj: "",
-      telefone: "",
-      repreLegal: "",
-      cargo: "",
-      areaAtuacao: ""
-    }
-  }),
-
+      defaultItem: {
+        name: "",
+        endereco: "",
+        bairro: "",
+        cidade: "",
+        uf: "",
+        cep: "",
+        cnpj: "",
+        telefone: "",
+        repreLegal: "",
+        cargo: "",
+        areaAtuacao: ""
+      }
+    };
+  },
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "Cadastrar" : "Editar";
     }
   },
-
   watch: {
     dialog(val) {
       val || this.close();
     }
   },
-
   created() {
     this.initialize();
   },
-
   methods: {
     initialize() {
       this.empresas = [
@@ -272,7 +270,6 @@ export default {
         }
       ];
     },
-
     editItem(item) {
       this.editedIndex = this.empresas.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -284,7 +281,6 @@ export default {
       confirm("Are you sure you want to delete this item?") &&
         this.empresas.splice(index, 1);
     },
-
     close() {
       this.dialog = false;
       setTimeout(() => {
@@ -292,7 +288,6 @@ export default {
         this.editedIndex = -1;
       }, 300);
     },
-
     save() {
       if (this.editedIndex > -1) {
         Object.assign(this.empresas[this.editedIndex], this.editedItem);

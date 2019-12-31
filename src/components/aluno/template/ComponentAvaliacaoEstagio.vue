@@ -1,5 +1,5 @@
 <template>
-  <v-data-table :headers="headers" :items="avaliacao" class="elevation-1">
+  <v-data-table :headers="headers" :items="avaliacao" hide-default-footer class="elevation-1">
     <template v-slot:item.notas="{ item }">
       <v-chip :color="getColor(item.notas)" dark>{{ item.notas }}</v-chip>
     </template>

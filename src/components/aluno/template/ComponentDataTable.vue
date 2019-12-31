@@ -5,7 +5,7 @@
         :headers="headers"
         :items="datas"
         sort-by="calories"
-        class="elevation-1 mt-10"
+        class="elevation-1 "
       >
         <template v-slot:top>
           <v-toolbar flat color="white">

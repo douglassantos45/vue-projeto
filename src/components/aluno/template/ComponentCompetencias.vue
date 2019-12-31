@@ -1,10 +1,10 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="competencias" class="elevation-1">
-    <template v-slot:item.notas="{ item }">
-      <v-chip :color="getColor(item.notas)" dark>{{ item.notas }}</v-chip>
-    </template>
-  </v-data-table>
+    <v-data-table :headers="headers" :items="competencias" hide-default-footer class="elevation-1">
+      <template v-slot:item.notas="{ item }">
+        <v-chip :color="getColor(item.notas)" dark>{{ item.notas }}</v-chip>
+      </template>
+    </v-data-table>
   </div>
 </template>
 

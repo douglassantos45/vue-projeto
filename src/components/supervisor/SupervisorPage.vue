@@ -12,7 +12,7 @@ import Header from "./template/ComponentHeader";
 import Footer from "./template/ComponentFooter";
 import Content from "./template/Content";
 export default {
-  name: "OrientadorPage",
+  name: "SupervisorPage",
   components: { Header, Footer, Content }
 };
 </script>

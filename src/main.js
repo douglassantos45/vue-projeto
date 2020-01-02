@@ -1,10 +1,10 @@
 import Vue from 'vue'
-import AppOrientador from './AppOrientador.vue'
+import AppSupervisor from './AppSupervisor.vue'
 import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false
 
 new Vue({
   vuetify,
-  render: h => h(AppOrientador)
+  render: h => h(AppSupervisor)
 }).$mount('#app')

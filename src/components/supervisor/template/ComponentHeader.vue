@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar app clipped-right>
+    <v-app-bar app clipped-right color="cyan" dark>
       <v-toolbar-title>IF Baiano</v-toolbar-title>
       <v-spacer />
       <v-item-text>Douglas da Silva Santos</v-item-text>

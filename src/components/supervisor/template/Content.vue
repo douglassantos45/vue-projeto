@@ -1,12 +1,15 @@
 <template>
-    <router-view></router-view>
+    <div>
+      <Tabs />
+    </div>
 </template>
 
 <script>
-//import DataTable from './ComponentDataTable'
+import Tabs from './ComponentTabs'
 
 export default {
   name: "Content",
+  components: { Tabs }
 };
 </script>
 

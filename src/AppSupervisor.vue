@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import Content from "./components/orientador/OrientadorPage";
+import Content from "./components/supervisor/SupervisorPage";
 export default {
-  name: "AppOrientador",
+  name: "AppSupervisor",
   components: { Content },
   data: () => ({
     //

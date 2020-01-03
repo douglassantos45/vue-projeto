@@ -8,7 +8,7 @@
         </v-toolbar>
         <v-container>
           <v-row>
-            <v-col cols="5">
+            <v-col cols="6">
               <v-select
                 v-model="editedItem.estagiario"
                 :items="estagiarios"
@@ -27,24 +27,57 @@
               ></v-select>
             </v-col>
 
-            <v-col cols="2">
+            <v-col cols="1">
               <v-text-field
                 v-model="editedItem.nota"
                 label="Nota"
                 value="0.0"
                 type="number"
-                suffix="Nota"
               ></v-text-field>
             </v-col>
           </v-row>
-          <v-dialog v-model="dialog" max-width="500px">
-            <template v-slot:activator="{ on }">
-              <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
-            </template>
+          <template>
+            <v-btn @click="save" color="primary" small dark class="mb-2" v-on="on">
+              Enviar
+              <v-icon small class="ml-1">mdi-send</v-icon>
+            </v-btn>
+          </template>
+          <v-dialog v-model="dialog" max-width="900px">
             <v-card>
               <v-card-title>
                 <span class="headline">{{ formTitle }}</span>
               </v-card-title>
+              <v-container>
+                <v-row>
+                  <v-col cols="5" class="ml-9">
+                    <v-select
+                      v-model="editedItem.estagiario"
+                      :items="estagiarios"
+                      item-text="estagiario"
+                      label="Estagiário"
+                      single-line
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="5">
+                    <v-select
+                      v-model="editedItem.atividade"
+                      :items="atividades"
+                      item-text="atividade"
+                      label="Atividade"
+                      single-line
+                    ></v-select>
+                  </v-col>
+
+                  <v-col cols="1">
+                    <v-text-field
+                      v-model="editedItem.nota"
+                      label="Nota"
+                      value="0.0"
+                      type="number"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
@@ -54,6 +87,7 @@
           </v-dialog>
         </v-container>
       </template>
+
       <template v-slot:item.action="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
         <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
@@ -108,7 +142,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+      return this.editedIndex === -1 ? "Enviar" : "Editar Avaliação";
     }
   },
 

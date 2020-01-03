@@ -19,7 +19,7 @@
           <v-tab-item>
             <v-card flat>
               <v-card-text>
-                <Avaliacao />
+                <ViewPlanoEstagio />
               </v-card-text>
             </v-card>
           </v-tab-item>
@@ -31,10 +31,11 @@
 
 <script>
 import Avaliacao from './ComponentAvaliacao'
+import ViewPlanoEstagio from './ViewPlanoEstagio'
 
 export default {
   name: "ComponentTabs",
-  components: { Avaliacao }
+  components: { Avaliacao, ViewPlanoEstagio }
 };
 </script>
 

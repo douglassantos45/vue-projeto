@@ -30,7 +30,7 @@
               <v-card-actions class="mr-2">
                 <v-btn color="purple" dark class="ml-2">Solicitar Login</v-btn>
                 <v-spacer />
-                <v-btn color="primary">Login</v-btn>
+                <v-btn color="primary" class="mb-3">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>

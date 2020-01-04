@@ -16,3 +16,9 @@ export default {
   })
 };
 </script>
+
+<style>
+  .theme--light.v-application {
+    background: black;
+  }
+</style>

@@ -13,24 +13,35 @@
                 <v-form>
                   <v-text-field
                     label="Usuário"
+                    v-model="user"
                     name="login"
                     prepend-icon="mdi-account"
+                    :rules="[rules.required]"
                     type="text"
                   />
-
                   <v-text-field
                     id="password"
-                    label="Senha"
-                    name="password"
+                    v-model="password"
                     prepend-icon="mdi-lock"
-                    type="password"
-                  />
+                    :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                    :rules="[rules.required]"
+                    :type="show ? 'text' : 'password'"
+                    name="password"
+                    label="Senha"
+                    @click:append="show = !show"
+                  ></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions class="mr-2">
                 <v-btn color="purple" dark class="ml-2">Solicitar Login</v-btn>
                 <v-spacer />
-                <v-btn color="primary" class="mb-3">Login</v-btn>
+                <v-btn
+                  :loading="loading"
+                  :disabled="loading"
+                  color="primary"
+                  class="ma-2 white--text"
+                  @click="loader = 'loading'"
+                >Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -41,7 +52,34 @@
 </template>
 <script>
 export default {
-  name: "LoginPage"
+  name: "LoginPage",
+  data() {
+    return {
+      password: "",
+      user: "",
+      loader: null,
+      loading: false,
+      show: false,
+      rules: {
+        required: value => !!value || "Campo Obrigatório.",
+        emailMatch: () => "The email and password you entered don't match"
+      }
+    };
+  },
+  watch: {
+    loader() {
+      if (this.user === "" || this.password === "") {
+        this.loading = false;
+      } else {
+        const l = this.loader;
+        this[l] = !this[l];
+
+        setTimeout(() => (this[l] = false), 3000);
+
+      }
+      this.loader = null;
+    }
+  }
 };
 </script>
 

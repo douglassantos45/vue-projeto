@@ -1,14 +1,13 @@
 <template>
-  <v-app>
+  <div>
       <DataTable />
-  </v-app>
+  </div>
 </template>
 
 <script>
-import DataTable from './templates/ComponentDataTable'
-
+import DataTable from './template/ComponentDataTable'
 export default {
-    name: 'OrientadorPage',
+    name: 'CampusPage',
     components: { DataTable }
 }
 </script>

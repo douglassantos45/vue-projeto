@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import Dashboard from "../src/components/assistente_nucleo/templates/Dashboard";
+import Dashboard from "../src/components/adm/templates/Dashboard";
 
 export default {
-  name: "AppNucleo",
+  name: "AppAdm",
   components: { Dashboard },
   data: () => ({
     //

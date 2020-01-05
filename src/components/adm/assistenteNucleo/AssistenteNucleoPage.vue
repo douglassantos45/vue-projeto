@@ -5,9 +5,10 @@
 </template>
 
 <script>
-import DataTable from './template/ComponentDataTable'
+import DataTable from './templates/ComponentDataTable'
+
 export default {
-    name: 'EstagioPages',
+    name: 'AssistenteNucleoPage',
     components: { DataTable }
 }
 </script>

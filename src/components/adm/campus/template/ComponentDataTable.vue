@@ -2,19 +2,19 @@
   <v-data-table
     :headers="headers"
     :search="search"
-    :items="empresas"
+    :items="campus"
     sort-by="calories"
     class="elevation-1 mt-3"
   >
     <template v-slot:top>
       <v-toolbar flat color="white" class="mb-6">
-        <v-toolbar-title class="text-uppercase">dados das empresas</v-toolbar-title>
+        <v-toolbar-title class="text-uppercase">dados dos Campus</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
-        <v-text-field v-model="search" label="Pesquisar Empresa" single-line hide-details></v-text-field>
+        <v-text-field v-model="search" label="Pesquisar..." single-line hide-details></v-text-field>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="1000px">
           <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark class="mb-2" v-on="on">Cadastrar Empresa</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-on="on">Cadastrar Campus</v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -27,7 +27,16 @@
                   <v-col cols="12" sm="6" md="7">
                     <v-text-field
                       v-model="editedItem.name"
-                      label="Nome da Empresa"
+                      label="Nome do Campus"
+                      :rules="nameRules"
+                      :counter="50"
+                    ></v-text-field>
+                  </v-col>
+                  
+                  <v-col cols="12" sm="6" md="5">
+                    <v-text-field
+                      v-model="editedItem.cidade"
+                      label="Cidade"
                       :rules="nameRules"
                       :counter="20"
                     ></v-text-field>
@@ -37,26 +46,18 @@
                       v-model="editedItem.endereco"
                       label="Endereço"
                       :rules="nameRules"
-                      :counter="15"
+                      :counter="25"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="6">
+                  <v-col cols="12" sm="6" md="5">
                     <v-text-field
                       v-model="editedItem.bairro"
                       label="Bairro"
                       :rules="nameRules"
-                      :counter="10"
+                      :counter="20"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field
-                      v-model="editedItem.cidade"
-                      label="Cidade"
-                      :rules="nameRules"
-                      :counter="10"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="1">
+                  <v-col cols="12" sm="6" md="2">
                     <v-text-field
                       v-model="editedItem.uf"
                       label="UF"
@@ -69,15 +70,15 @@
                       v-model="editedItem.cep"
                       label="Cep"
                       :rules="nameRules"
-                      :counter="10"
+                      :counter="9"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="6" md="5">
                     <v-text-field
                       v-model="editedItem.cnpj"
                       label="CNPJ/INCRA"
                       :rules="nameRules"
-                      :counter="16"
+                      :counter="20"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -93,25 +94,28 @@
                       v-model="editedItem.repreLegal"
                       label="Representante Legal"
                       :rules="nameRules"
-                      :counter="20"
+                      :counter="50"
                     ></v-text-field>
                   </v-col>
+
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field
-                      v-model="editedItem.cargo"
-                      label="Cargo"
+                      v-model="editedItem.repreLegal"
+                      label="Cargo do Representante Legal"
                       :rules="nameRules"
-                      :counter="10"
+                      :counter="50"
                     ></v-text-field>
                   </v-col>
+                 
                   <v-col cols="12" sm="6" md="3">
                     <v-text-field
                       v-model="editedItem.areaAtuacao"
                       label="Área de Atuação"
                       :rules="nameRules"
-                      :counter="10"
+                      :counter="25"
                     ></v-text-field>
                   </v-col>
+                  
                 </v-row>
               </v-container>
             </v-card-text>
@@ -142,12 +146,13 @@
 export default {
   name: 'ComponentDataTable',
   data: () => ({
+    reg: '',
     dialog: false,
     search: "",
     nameRules: [v => !!v || "Name is required"],
     headers: [
       {
-        text: "Nome da Empresa",
+        text: "Campus",
         align: "left",
         value: "name"
       },
@@ -158,7 +163,7 @@ export default {
       { text: "Área de Atuação", value: "areaAtuacao", sortable: false },
       { text: "Ações", value: "action", sortable: false }
     ],
-    empresas: [],
+    campus: [],
     editedIndex: -1,
     editedItem: {
       name: "",
@@ -206,30 +211,15 @@ export default {
 
   methods: {
     initialize() {
-      this.empresas = [
+      this.campus = [
         {
-          name: "NetCom",
-          endereco: "Rua tal",
-          bairro: "Bairro qualquer",
-          cidade: "Senhor do Bonfim",
-          uf: "BA",
-          cep: "48970-000",
-          cnpj: "1123418970450",
-          telefone: "(74) 3645-1472",
-          repreLegal: "João Canário Oliviera",
-          cargo: "Gerente",
-          areaAtuacao: "Provedor de Internet",
-          supervisor: "Mário Santos Gomes Ferreira",
-          cargoSupervisor: "Técnico em Redes"
-        },
-        {
-          name: "IF Baiano",
-          endereco: "Estr. p/ Igara",
+          name: "Instituto Federal Campus Senhor do Bonfim",
+          endereco: "Estrada para Igara",
           bairro: "Zona Rural",
           cidade: "Senhor do Bonfim",
           uf: "BA",
           cep: "48970-000",
-          cnpj: "978673418970450",
+          cnpj: "10.724.903/0003-30",
           telefone: "(74) 3542-4000",
           repreLegal: "Aécio José Araújo Passos Duarte",
           cargo: "Diretor",
@@ -238,63 +228,32 @@ export default {
           cargoSupervisor: "Especialista em Apicultura"
         },
         {
-          name: "NetCom",
-          endereco: "R. Leonardo Galvão Bandeira",
-          bairro: "Centro",
-          cidade: "Campo Formoso",
-          uf: "BA",
-          cep: "48970-000",
-          cnpj: "6673418970450",
-          telefone: "(74) 3645-1472",
-          repreLegal: "Paulo Júnior",
-          cargo: "Gerente",
-          areaAtuacao: "Provedor de Internet",
-          supervisor: "Gomes dos Santos",
-          cargoSupervisor: "Técnico em Redes"
-        },
-        {
-          name: "NetCom",
-          endereco: "Rua tal",
-          bairro: "Bairro qualquer",
+          name: "Instituto Federal Campus Sertão Pernambucano",
+          endereco: "Estrada para Igara",
+          bairro: "Zona Rural",
           cidade: "Senhor do Bonfim",
           uf: "BA",
           cep: "48970-000",
-          cnpj: "1123418970450",
-          telefone: "(74) 3645-1472",
-          repreLegal: "João Canário Oliviera",
-          cargo: "Gerente",
-          areaAtuacao: "Provedor de Internet",
-          supervisor: "Mário Santos Gomes Ferreira",
-          cargoSupervisor: "Técnico em Redes"
+          cnpj: "10.724.903/0003-30",
+          telefone: "(74) 3542-4000",
+          repreLegal: "Aécio José Araújo Passos Duarte",
+          cargo: "Diretor",
+          areaAtuacao: "Instituto Educacional",
+          supervisor: "Bruno Álves dos Santos",
+          cargoSupervisor: "Especialista em Apicultura"
         },
-        {
-          name: "NetCom",
-          endereco: "Rua tal",
-          bairro: "Bairro qualquer",
-          cidade: "Senhor do Bonfim",
-          uf: "BA",
-          cep: "48970-000",
-          cnpj: "1123418970450",
-          telefone: "(74) 3645-1472",
-          repreLegal: "João Canário Oliviera",
-          cargo: "Gerente",
-          areaAtuacao: "Provedor de Internet",
-          supervisor: "Mário Santos Gomes Ferreira",
-          cargoSupervisor: "Técnico em Redes"
-        }
       ];
     },
-
     editItem(item) {
-      this.editedIndex = this.empresas.indexOf(item);
+      this.editedIndex = this.campus.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      const index = this.empresas.indexOf(item);
+      const index = this.campus.indexOf(item);
       confirm("Are you sure you want to delete this item?") &&
-        this.empresas.splice(index, 1);
+        this.campus.splice(index, 1);
     },
 
     close() {
@@ -307,9 +266,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.empresas[this.editedIndex], this.editedItem);
+        Object.assign(this.campus[this.editedIndex], this.editedItem);
       } else {
-        this.empresas.push(this.editedItem);
+        this.campus.push(this.editedItem);
       }
       this.close();
     }

@@ -1,9 +1,16 @@
 <template>
-  <v-data-table :headers="headers" :items="assisNucleo" sort-by="calories" class="elevation-1 mt-3">
+  <v-data-table
+    :headers="headers"
+    :items="assisNucleo"
+    :search="search"
+    sort-by="calories"
+    class="elevation-1 mt-3"
+  >
     <template v-slot:top>
       <v-toolbar flat color="white">
         <v-toolbar-title class="text-uppercase">dados do assistente</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
+        <v-text-field v-model="search" label="Pesquisar..." single-line hide-details></v-text-field>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="1000px">
           <template v-slot:activator="{ on }">
@@ -129,6 +136,12 @@
                       :counter="2"
                     ></v-text-field>
                   </v-col>
+                  <v-col cols="12" sm="6" md="3">
+                    <v-row justify="space-around">
+                      <label for>Situação Assistente de Núcleo
+                      <v-switch style="margin-top:5px" v-model="editedItem.status" label="Status"></v-switch></label>
+                    </v-row>
+                  </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
@@ -160,6 +173,7 @@ export default {
       menu: false,
       modal: false,
       dialog: false,
+      showActived: false,
       search: "",
       nameRules: [v => !!v || "Campo Obrigatório"],
       headers: [
@@ -171,6 +185,7 @@ export default {
         { text: "Cidade", value: "cidade" },
         { text: "Telefone", value: "telefone", sortable: false },
         { text: "Área de Atuação", value: "areaAtuacao", sortable: false },
+        { text: "Status", value: "status" },
         { text: "Ações", value: "action", sortable: false }
       ],
       assisNucleo: [],
@@ -187,6 +202,7 @@ export default {
         cpf: "",
         telefone: "",
         date: new Date(),
+        status: this.showActived ? true : false,
         areaAtuacao: ""
       },
       defaultItem: {
@@ -201,6 +217,7 @@ export default {
         cpf: "",
         telefone: "",
         date: new Date(),
+        status: this.showActived ? true : false,
         areaAtuacao: ""
       }
     };
@@ -208,7 +225,7 @@ export default {
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "Cadastrar" : "Editar";
-    }
+    },
   },
 
   watch: {
@@ -236,6 +253,7 @@ export default {
           orgaoExpedidor: "SSP",
           telefone: "(74) 9 9145-2342",
           date: "1983/03/12",
+          status: "true",
           areaAtuacao: "Assistente de Núcleo"
         }
       ];
@@ -273,4 +291,10 @@ export default {
 };
 </script>
 <style>
+#input-usage .v-input__prepend-outer,
+#input-usage .v-input__append-outer,
+#input-usage .v-input__slot,
+#input-usage .v-messages {
+  border: 1px dashed rgba(0, 0, 0, 0.4);
+}
 </style>

@@ -96,12 +96,12 @@
                     <v-dialog
                       ref="dialog"
                       v-model="modal"
-                      :return-value.sync="date"
+                      :return-value.sync="editedItem.date"
                       persistent
                       width="290px"
                     >
                       <template v-slot:activator="{ on }">
-                        <v-text-field v-model="date" label="Data de Nascimento" readonly v-on="on"></v-text-field>
+                        <v-text-field v-model="editedItem.date" label="Data de Nascimento" readonly v-on="on"></v-text-field>
                       </template>
                       <v-date-picker v-model="date" scrollable>
                         <v-spacer></v-spacer>
@@ -149,7 +149,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn small color="red" dark @click="close">Cancelar</v-btn>
-              <v-btn small color="blue" class="mr-4" dark @click="save">Salvar</v-btn>
+              <v-btn small color="green" class="mr-4" dark @click="save">Salvar</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -158,9 +158,6 @@
     <template v-slot:item.action="{ item }">
       <v-icon small class="mr-2" @click="editItem(item)">mdi-pen</v-icon>
       <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize">Reset</v-btn>
     </template>
   </v-data-table>
 </template>
@@ -252,7 +249,7 @@ export default {
           rg: "09.098.091-12",
           orgaoExpedidor: "SSP",
           telefone: "(74) 9 9145-2342",
-          date: "1983/03/12",
+          date: "1987/05/01",
           status: "true",
           areaAtuacao: "Assistente de Núcleo"
         }

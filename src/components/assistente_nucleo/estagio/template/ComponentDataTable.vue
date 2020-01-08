@@ -1,9 +1,16 @@
 <template>
-  <v-data-table :headers="headers" :items="estagios" sort-by="calories" class="elevation-1 mt-3">
+  <v-data-table
+    :headers="headers"
+    :items="estagios"
+    :search="search"
+    sort-by="calories"
+    class="elevation-1 mt-3"
+  >
     <template v-slot:top>
-      <v-toolbar flat color="white" >
+      <v-toolbar flat color="white">
         <v-toolbar-title class="text-uppercase">dados do estágio</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
+        <v-text-field v-model="search" label="Pesquisar..." single-line hide-details></v-text-field>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="1000px">
           <template v-slot:activator="{ on }">
@@ -14,32 +21,110 @@
               <span class="headline">{{ formTitle }}</span>
             </v-card-title>
 
+            <!-- Modal Cadastro/Edit -->
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.name" label="Nome da Empresa"></v-text-field>
+                   <v-col cols="12" sm="6" md="5">
+                    <v-text-field
+                      v-model="editedItem.aluno"
+                      label="Aluno"
+                      :rules="nameRules"
+                      :counter="50"
+                    ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
+                  <!-- DATA -->
+                  <v-col cols="12" sm="6" md="2">
+                    <v-dialog
+                      ref="dialog"
+                      v-model="modal"
+                      :return-value.sync="editedItem.date"
+                      persistent
+                      width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="editedItem.dataInicio"
+                          label="Data de Início"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="date" scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn text color="red" @click="modal = false">Cancelar</v-btn>
+                        <v-btn text color="primary" @click="$refs.dialog.save(date)">Confirmar</v-btn>
+                      </v-date-picker>
+                    </v-dialog>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
+                  
+                  <v-col cols="12" sm="6" md="3">
+                    <v-dialog
+                      ref="dialog"
+                      v-model="modal"
+                      :return-value.sync="editedItem.date"
+                      persistent
+                      width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="editedItem.dataTerminoPrevista"
+                          label="Data de Termino Prevista"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="date" scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn text color="red" @click="modal = false">Cancelar</v-btn>
+                        <v-btn text color="primary" @click="$refs.dialog.save(date)">Confirmar</v-btn>
+                      </v-date-picker>
+                    </v-dialog>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
+          
+                  <v-col cols="12" sm="6" md="2">
+                    <v-dialog
+                      ref="dialog"
+                      v-model="modal"
+                      :return-value.sync="editedItem.date"
+                      persistent
+                      width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="editedItem.dataTermino"
+                          label="Data de Termino"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="date" scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn text color="red" @click="modal = false">Cancelar</v-btn>
+                        <v-btn text color="primary" @click="$refs.dialog.save(date)">Confirmar</v-btn>
+                      </v-date-picker>
+                    </v-dialog>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
+                  <!-- FIM DATA -->
+
+                
+
+                  <v-col cols="12" sm="6" md="2">
+                    <v-row justify="space-around">
+                      <label for>
+                        Situação do Estágio
+                        <v-switch style="margin-top:5px" v-model="editedItem.status" label="Status"></v-switch>
+                      </label>
+                    </v-row>
                   </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
-
+            <!--Fim modal-->
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+              <v-btn small color="red" dark @click="close">Cancelar</v-btn>
+              <v-btn small color="green" class="mr-4" dark @click="save">Salvar</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -49,51 +134,63 @@
       <v-icon small class="mr-2" @click="editItem(item)">mdi-pen</v-icon>
       <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
     </template>
-    <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize">Reset</v-btn>
-    </template>
   </v-data-table>
 </template>
 
 <script>
 export default {
-  name: 'ComponentDataTable',
-  data: () => ({
-    dialog: false,
-    headers: [
-      {
-        text: "Nome da Empresa",
-        align: "left",
-        sortable: false,
-        value: "name"
+  name: "ComponentDataTable",
+  data() {
+    return {
+      menu: false,
+      modal: false,
+      dialog: false,
+      showActived: false,
+      select: null,
+      search: "",
+      cursos: [
+        "Técnico em Zootecnia",
+        "Técnico em Informática",
+        "Técnico em Agropecuária",
+        "Técnico em Alimentos",
+        "Licenciatura em Ciências Agrárias",
+        "Licenciatura em Ciências da Computação",
+        "Ensino Médio"
+      ],
+      nameRules: [v => !!v || "Campo Obrigatório"],
+      headers: [
+        {
+          text: "Aluno",
+          align: "left",
+          value: "aluno"
+        },
+        { text: "Data de Início", value: "dataInicio", sortable: false },
+        { text: "Data de Termino Prevista", value: "dataTerminoPrevista", sortable: false },
+        { text: "Data de Termino", value: "dataTermino", sortable: false },
+        { text: "Status", value: "status", sortable: false},
+        { text: "Ações", value: "action", sortable: false}
+      ],
+      estagios: [],
+      editedIndex: -1,
+      editedItem: {
+        aluno: "",
+        dataTerminoPrevista: "",
+        dataTermino: "",
+        dataInicio: "",
+        status: this.showActived ? true : false
       },
-      { text: "Calories", value: "calories" },
-      { text: "Fat (g)", value: "fat" },
-      { text: "Carbs (g)", value: "carbs" },
-      { text: "Protein (g)", value: "protein" },
-      { text: "Actions", value: "action", sortable: false }
-    ],
-    estagios: [],
-    editedIndex: -1,
-    editedItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0
-    },
-    defaultItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0
-    }
-  }),
-
+      defaultItem: {
+        aluno: "",
+       dataTerminoPrevista: "",
+        dataTermino: "",
+        dataInicio: "",
+        status: this.showActived ? true : false
+      }
+    };
+  },
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+      return this.editedIndex === -1 ? "Cadastrar" : "Editar";
     }
   },
 
@@ -110,55 +207,12 @@ export default {
   methods: {
     initialize() {
       this.estagios = [
-      
         {
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5
-        },
-        {
-          name: "Donut",
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7
+          aluno: "Douglas da Silva Santos",
+          dataInicio: "2020/02/01",
+          dataTerminoPrevista: "2020/04/01",
+          dataTermino: "2020/05/01",
+          status: "true"
         }
       ];
     },
@@ -171,7 +225,7 @@ export default {
 
     deleteItem(item) {
       const index = this.estagios.indexOf(item);
-      confirm("Are you sure you want to delete this item?") &&
+      confirm("Deseja realmente excluir o item?") &&
         this.estagios.splice(index, 1);
     },
 
@@ -195,4 +249,10 @@ export default {
 };
 </script>
 <style>
+#input-usage .v-input__prepend-outer,
+#input-usage .v-input__append-outer,
+#input-usage .v-input__slot,
+#input-usage .v-messages {
+  border: 1px dashed rgba(0, 0, 0, 0.4);
+}
 </style>

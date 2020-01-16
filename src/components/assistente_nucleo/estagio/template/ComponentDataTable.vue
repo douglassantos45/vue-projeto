@@ -25,89 +25,113 @@
             <v-card-text>
               <v-container>
                 <v-row>
-                   <v-col cols="12" sm="6" md="5">
-                    <v-text-field
-                      v-model="editedItem.aluno"
-                      label="Aluno"
-                      :rules="nameRules"
-                      :counter="50"
-                    ></v-text-field>
+                  <v-col cols="12" sm="6" md="3">
+                    <div>
+                      <v-autocomplete label="Matrícula" :items="matriculas"></v-autocomplete>
+                    </div>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="3">
+                    <div>
+                      <v-autocomplete label="Empresa" :items="editedItem.matriculas"></v-autocomplete>
+                    </div>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="3">
+                    <div>
+                      <v-autocomplete label="Supervisor" :items="supervisores"></v-autocomplete>
+                    </div>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="3">
+                    <div>
+                      <v-autocomplete label="Orientador" :items="orientadores"></v-autocomplete>
+                    </div>
                   </v-col>
                   <!-- DATA -->
-                  <v-col cols="12" sm="6" md="2">
-                    <v-dialog
-                      ref="dialog"
-                      v-model="modal"
-                      :return-value.sync="editedItem.date"
-                      persistent
-                      width="290px"
-                    >
-                      <template v-slot:activator="{ on }">
-                        <v-text-field
-                          v-model="editedItem.dataInicio"
-                          label="Data de Início"
-                          readonly
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker v-model="date" scrollable>
-                        <v-spacer></v-spacer>
-                        <v-btn text color="red" @click="modal = false">Cancelar</v-btn>
-                        <v-btn text color="primary" @click="$refs.dialog.save(date)">Confirmar</v-btn>
-                      </v-date-picker>
-                    </v-dialog>
-                  </v-col>
-                  
                   <v-col cols="12" sm="6" md="3">
-                    <v-dialog
-                      ref="dialog"
-                      v-model="modal"
-                      :return-value.sync="editedItem.date"
-                      persistent
-                      width="290px"
+                    <v-menu
+                      ref="inicio"
+                      v-model="inicio"
+                      :close-on-content-click="false"
+                      :return-value.sync="editedItem.dataInicio"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="290px"
                     >
                       <template v-slot:activator="{ on }">
                         <v-text-field
-                          v-model="editedItem.dataTerminoPrevista"
-                          label="Data de Termino Prevista"
+                          v-model="dateInicio"
+                          label="Data de Início"
+                          prepend-icon="mdi-calendar"
                           readonly
                           v-on="on"
                         ></v-text-field>
                       </template>
-                      <v-date-picker v-model="date" scrollable>
+                      <v-date-picker v-model="dateInicio" no-title scrollable>
                         <v-spacer></v-spacer>
-                        <v-btn text color="red" @click="modal = false">Cancelar</v-btn>
-                        <v-btn text color="primary" @click="$refs.dialog.save(date)">Confirmar</v-btn>
+                        <v-btn text color="primary" @click="inicio = false">Cancel</v-btn>
+                        <v-btn text color="primary" @click="$refs.inicio.save(dateInicio)">OK</v-btn>
                       </v-date-picker>
-                    </v-dialog>
+                    </v-menu>
                   </v-col>
-          
-                  <v-col cols="12" sm="6" md="2">
-                    <v-dialog
-                      ref="dialog"
-                      v-model="modal"
-                      :return-value.sync="editedItem.date"
-                      persistent
-                      width="290px"
-                    >
-                      <template v-slot:activator="{ on }">
-                        <v-text-field
-                          v-model="editedItem.dataTermino"
-                          label="Data de Termino"
-                          readonly
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker v-model="date" scrollable>
-                        <v-spacer></v-spacer>
-                        <v-btn text color="red" @click="modal = false">Cancelar</v-btn>
-                        <v-btn text color="primary" @click="$refs.dialog.save(date)">Confirmar</v-btn>
-                      </v-date-picker>
-                    </v-dialog>
-                  </v-col>
-                  <!-- FIM DATA -->
 
-                
+                  <v-col cols="12" sm="6" md="4">
+                    <v-menu
+                      ref="prevTermino"
+                      v-model="prevTermino"
+                      :close-on-content-click="false"
+                      :return-value.sync="editedItem.dataTerminoPrevista"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="datePrevTermino"
+                          label="Data de Prevista para Termino"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="datePrevTermino" no-title scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn text color="primary" @click="prevTermino = false">Cancel</v-btn>
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="$refs.prevTermino.save(datePrevTermino)"
+                        >OK</v-btn>
+                      </v-date-picker>
+                    </v-menu>
+                  </v-col>
+
+                  <v-col cols="12" sm="6" md="3">
+                    <v-menu
+                      ref="termino"
+                      v-model="termino"
+                      :close-on-content-click="false"
+                      :return-value.sync="editedItem.dataTermino"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="dateTermino"
+                          label="Data de Termino"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="dateTermino" no-title scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn text color="primary" @click="termino = false">Cancel</v-btn>
+                        <v-btn text color="primary" @click="$refs.termino.save(dateTermino)">OK</v-btn>
+                      </v-date-picker>
+                    </v-menu>
+                  </v-col>
+
+                  <!-- FIM DATA -->
 
                   <v-col cols="12" sm="6" md="2">
                     <v-row justify="space-around">
@@ -142,20 +166,36 @@ export default {
   name: "ComponentDataTable",
   data() {
     return {
-      menu: false,
-      modal: false,
+      inicio: false,
+      prevTermino: false,
+      termino: false,
       dialog: false,
       showActived: false,
-      select: null,
       search: "",
-      cursos: [
-        "Técnico em Zootecnia",
-        "Técnico em Informática",
-        "Técnico em Agropecuária",
-        "Técnico em Alimentos",
-        "Licenciatura em Ciências Agrárias",
-        "Licenciatura em Ciências da Computação",
-        "Ensino Médio"
+      empresas: [
+        "Madalena Zagallo",
+        "IF Baiano Senhor do Bonfim",
+        "NetCom",
+        "Infornet",
+        "Bradesco",
+        "Fazenda Rios",
+        "Cervejaria Ferreira"
+      ],
+      supervisores: ["Madalena Zagallo", "Tanya Stanley", "Mark	Otto"],
+      orientadores: [
+        "Arcidres Barreiro",
+        "Claudemira Castelo Branco",
+        "Tanya Stanley",
+        "Larry the Bird"
+      ],
+      matriculas: [
+        "20193421834644",
+        "20193421611484",
+        "20193421808013",
+        "20193897974906",
+        "20194560921840",
+        "20191098606304",
+        "20193421080293"
       ],
       nameRules: [v => !!v || "Campo Obrigatório"],
       headers: [
@@ -165,23 +205,29 @@ export default {
           value: "aluno"
         },
         { text: "Data de Início", value: "dataInicio", sortable: false },
-        { text: "Data de Termino Prevista", value: "dataTerminoPrevista", sortable: false },
+        {
+          text: "Data de Termino Prevista",
+          value: "dataTerminoPrevista",
+          sortable: false
+        },
         { text: "Data de Termino", value: "dataTermino", sortable: false },
-        { text: "Status", value: "status", sortable: false},
-        { text: "Ações", value: "action", sortable: false}
+        { text: "Status", value: "status", sortable: false },
+        { text: "Ações", value: "action", sortable: false }
       ],
       estagios: [],
       editedIndex: -1,
       editedItem: {
-        aluno: "",
+        matricula: this.matriculas,
+        aluno: "Douglas da Silva Santos",
         dataTerminoPrevista: "",
         dataTermino: "",
         dataInicio: "",
         status: this.showActived ? true : false
       },
       defaultItem: {
-        aluno: "",
-       dataTerminoPrevista: "",
+        matricula: this.matriculas,
+        aluno: "Douglas da Silva Santos",
+        dataTerminoPrevista: "",
         dataTermino: "",
         dataInicio: "",
         status: this.showActived ? true : false
@@ -207,7 +253,7 @@ export default {
   methods: {
     initialize() {
       this.estagios = [
-        {
+        { 
           aluno: "Douglas da Silva Santos",
           dataInicio: "2020/02/01",
           dataTerminoPrevista: "2020/04/01",
@@ -242,6 +288,7 @@ export default {
         Object.assign(this.estagios[this.editedIndex], this.editedItem);
       } else {
         this.estagios.push(this.editedItem);
+        this.editedItem.estagios.data = ""
       }
       this.close();
     }
